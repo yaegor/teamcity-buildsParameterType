@@ -188,8 +188,8 @@ public class CustomParameterSelect extends ParameterControlProviderAdapter {
     final Map<String, String> arguments = context.getParameterTypeArguments();
     final String buildTypeExternalId = arguments.get(BUILD_TYPE_EXTERNAL_ID);
 
-    if (buildTypeExternalId.isEmpty()) {
-      throw new InvalidParametersException("No valid id after \"" + BUILD_TYPE_EXTERNAL_ID + ":\" is specified");
+    if (buildTypeExternalId == null || buildTypeExternalId.isEmpty()) {
+      throw new InvalidParametersException("No valid build configuration id via " + EXAMPLE + " is specified");
     }
 
     final SBuildType result = myDataAccess.getBuildTypebyExternalId(buildTypeExternalId);
