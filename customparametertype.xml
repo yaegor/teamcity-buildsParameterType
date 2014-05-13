@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="customparametertype" default="all">
+  
+  
+  <property file="customparametertype.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.sbas/**"/>
+    <exclude name="**/.IJI.*/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.orig/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+    <include name="**/?*.htm"/>
+    <include name="**/?*.jsp"/>
+    <include name="**/?*.js"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.teamcity_closed_api.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/web.jar"/>
+  </path>
+  
+  <path id="library.teamcity_open_api_common.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/common-api.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/runtime/runtime-util.jar"/>
+  </path>
+  
+  <path id="library.teamcity_open_api_server.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-api.jar"/>
+  </path>
+  
+  <path id="library.teamcity_third-party_common.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/openapi.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/spring.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
+  </path>
+  
+  <path id="library.teamcity_third-party_server.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/spring-webmvc.jar"/>
+  </path>
+  
+  <path id="library.tomcat.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/lib/servlet-api.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm4-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module customParameterType-server -->
+  
+  <dirname property="module.customparametertype-server.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.customparametertype-server" value="-encoding windows-1251 -source 1.5 ${compiler.args}"/>
+  
+  <property name="customparametertype-server.output.dir" value="${module.customparametertype-server.basedir}/out/production/customParameterType-server"/>
+  <property name="customparametertype-server.testoutput.dir" value="${module.customparametertype-server.basedir}/out/test/customParameterType-server"/>
+  
+  <path id="customparametertype-server.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="customparametertype-server.module.production.classpath">
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="library.teamcity_closed_api.classpath"/>
+  </path>
+  
+  <path id="customparametertype-server.runtime.production.module.classpath">
+    <pathelement location="${customparametertype-server.output.dir}"/>
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="library.teamcity_closed_api.classpath"/>
+  </path>
+  
+  <path id="customparametertype-server.module.classpath">
+    <pathelement location="${customparametertype-server.output.dir}"/>
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="library.teamcity_closed_api.classpath"/>
+  </path>
+  
+  <path id="customparametertype-server.runtime.module.classpath">
+    <pathelement location="${customparametertype-server.testoutput.dir}"/>
+    <pathelement location="${customparametertype-server.output.dir}"/>
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="library.teamcity_closed_api.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.customparametertype-server">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.customparametertype-server">
+    <patternset refid="excluded.from.module.customparametertype-server"/>
+  </patternset>
+  
+  <path id="customparametertype-server.module.sourcepath">
+    <dirset dir="${module.customparametertype-server.basedir}/server">
+      <include name="src"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.customparametertype-server" depends="compile.module.customparametertype-server.production,compile.module.customparametertype-server.tests" description="Compile module customParameterType-server"/>
+  
+  <target name="compile.module.customparametertype-server.production" depends="register.custom.compilers" description="Compile module customParameterType-server; production classes">
+    <mkdir dir="${customparametertype-server.output.dir}"/>
+    <javac2 destdir="${customparametertype-server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.customparametertype-server}"/>
+      <bootclasspath refid="customparametertype-server.module.bootclasspath"/>
+      <classpath refid="customparametertype-server.module.production.classpath"/>
+      <src refid="customparametertype-server.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.customparametertype-server"/>
+    </javac2>
+    
+    <copy todir="${customparametertype-server.output.dir}">
+      <fileset dir="${module.customparametertype-server.basedir}/server/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.customparametertype-server.basedir}/server/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.customparametertype-server.tests" depends="register.custom.compilers,compile.module.customparametertype-server.production" description="compile module customParameterType-server; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.customparametertype-server" description="cleanup module">
+    <delete dir="${customparametertype-server.output.dir}"/>
+    <delete dir="${customparametertype-server.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module root -->
+  
+  <dirname property="module.root.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.root" value="-encoding windows-1251 -source 1.5 ${compiler.args}"/>
+  
+  <property name="root.output.dir" value="${module.root.basedir}/out/production/root"/>
+  <property name="root.testoutput.dir" value="${module.root.basedir}/out/test/root"/>
+  
+  <path id="root.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="root.module.production.classpath"/>
+  
+  <path id="root.runtime.production.module.classpath">
+    <pathelement location="${root.output.dir}"/>
+  </path>
+  
+  <path id="root.module.classpath">
+    <pathelement location="${root.output.dir}"/>
+  </path>
+  
+  <path id="root.runtime.module.classpath">
+    <pathelement location="${root.testoutput.dir}"/>
+    <pathelement location="${root.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.root">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.root">
+    <patternset refid="excluded.from.module.root"/>
+  </patternset>
+  
+  
+  <target name="compile.module.root" depends="compile.module.root.production,compile.module.root.tests" description="Compile module root"/>
+  
+  <target name="compile.module.root.production" depends="register.custom.compilers" description="Compile module root; production classes"/>
+  
+  <target name="compile.module.root.tests" depends="register.custom.compilers,compile.module.root.production" description="compile module root; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.root" description="cleanup module">
+    <delete dir="${root.output.dir}"/>
+    <delete dir="${root.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.customparametertype-server, clean.module.root, clean.artifact.unpacked_plugin" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.customparametertype-server, compile.module.root" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.copy_plugin_to_data_directory" value="${path.variable.teamcitydatadirectory}/plugins"/>
+    <property name="artifact.output.customparametertype-common.jar" value="${basedir}/out/artifacts/customParameterType_common_jar"/>
+    <property name="artifact.output.final_plugin_package" value="${basedir}/out/artifacts/final_plugin_package"/>
+    <property name="artifact.output.unpacked_plugin" value="${basedir}/out/artifacts/unpacked_plugin"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.customParameterType.zip" value="${artifacts.temp.dir}/customParameterType.zip"/>
+    <property name="temp.jar.path.customParameterType-common.jar" value="${artifacts.temp.dir}/customParameterType-common.jar"/>
+    <property name="temp.jar.path.customParameterType.zip2" value="${artifacts.temp.dir}/1/customParameterType.zip"/>
+    <mkdir dir="${artifacts.temp.dir}/1"/>
+    <property name="temp.jar.path.customParameterType.zip3" value="${artifacts.temp.dir}/2/customParameterType.zip"/>
+    <mkdir dir="${artifacts.temp.dir}/2"/>
+    <property name="temp.jar.path.customParameterType-agent.jar" value="${artifacts.temp.dir}/customParameterType-agent.jar"/>
+    <property name="temp.jar.path.customParameterType-server.jar" value="${artifacts.temp.dir}/customParameterType-server.jar"/>
+  </target>
+  
+  <target name="clean.artifact.unpacked_plugin" description="clean unpacked plugin artifact output">
+    <delete dir="${artifact.output.unpacked_plugin}"/>
+  </target>
+  
+  <target name="artifact.copy_plugin_to_data_directory" depends="init.artifacts, artifact.unpacked_plugin" description="Build &#39;copy plugin to data directory&#39; artifact">
+    <property name="artifact.temp.output.copy_plugin_to_data_directory" value="${artifacts.temp.dir}/copy_plugin_to_data_directory"/>
+    <mkdir dir="${artifact.temp.output.copy_plugin_to_data_directory}"/>
+    <zip destfile="${temp.jar.path.customParameterType.zip}">
+      <zipfileset dir="${artifact.output.unpacked_plugin}"/>
+    </zip>
+    <copy file="${temp.jar.path.customParameterType.zip}" tofile="${artifact.temp.output.copy_plugin_to_data_directory}/customParameterType.zip"/>
+  </target>
+  
+  <target name="artifact.customparametertype-common.jar" depends="init.artifacts" description="Build &#39;customParameterType-common.jar&#39; artifact">
+    <property name="artifact.temp.output.customparametertype-common.jar" value="${artifacts.temp.dir}/customParameterType_common_jar"/>
+    <mkdir dir="${artifact.temp.output.customparametertype-common.jar}"/>
+    <jar destfile="${temp.jar.path.customParameterType-common.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${customparametertype-common.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.customParameterType-common.jar}" tofile="${artifact.temp.output.customparametertype-common.jar}/customParameterType-common.jar"/>
+  </target>
+  
+  <target name="artifact.final_plugin_package" depends="init.artifacts, artifact.unpacked_plugin" description="Build &#39;final plugin package&#39; artifact">
+    <property name="artifact.temp.output.final_plugin_package" value="${artifacts.temp.dir}/final_plugin_package"/>
+    <mkdir dir="${artifact.temp.output.final_plugin_package}"/>
+    <zip destfile="${temp.jar.path.customParameterType.zip2}">
+      <zipfileset dir="${artifact.output.unpacked_plugin}"/>
+    </zip>
+    <copy file="${temp.jar.path.customParameterType.zip2}" tofile="${artifact.temp.output.final_plugin_package}/customParameterType.zip"/>
+  </target>
+  
+  <target name="artifact.unpacked_plugin" depends="init.artifacts, artifact.customparametertype-common.jar, artifact.customparametertype-common.jar, compile.module.customparametertype-server" description="Build &#39;unpacked plugin&#39; artifact">
+    <mkdir dir="${artifact.output.unpacked_plugin}"/>
+    <jar destfile="${temp.jar.path.customParameterType-agent.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${customparametertype-agent.output.dir}"/>
+    </jar>
+    <zip destfile="${temp.jar.path.customParameterType.zip3}">
+      <zipfileset dir="${artifact.temp.output.customparametertype-common.jar}" prefix="customParameterType/lib"/>
+      <zipfileset file="${temp.jar.path.customParameterType-agent.jar}" prefix="customParameterType/lib"/>
+    </zip>
+    <jar destfile="${temp.jar.path.customParameterType-server.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${customparametertype-server.output.dir}"/>
+    </jar>
+    <mkdir dir="${artifact.output.unpacked_plugin}/agent"/>
+    <copy file="${temp.jar.path.customParameterType.zip3}" tofile="${artifact.output.unpacked_plugin}/agent/customParameterType.zip"/>
+    <mkdir dir="${artifact.output.unpacked_plugin}/server"/>
+    <copy todir="${artifact.output.unpacked_plugin}/server">
+      <fileset dir="${artifact.temp.output.customparametertype-common.jar}"/>
+    </copy>
+    <copy file="${temp.jar.path.customParameterType-server.jar}" tofile="${artifact.output.unpacked_plugin}/server/customParameterType-server.jar"/>
+    <ant antfile="build.xml" target="prepare.plugin.descriptor.file.artifacts" dir="${basedir}">
+      <property name="artifact.output.path" value="${artifact.output.unpacked_plugin}"/>
+      <property name="source" value="teamcity-plugin.xml"/>
+      <property name="dest" value="${artifact.output.path}/teamcity-plugin.xml"/>
+      <property name="plugin.vendor" value=""/>
+      <property name="plugin.vendor.url" value=""/>
+    </ant>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.copy_plugin_to_data_directory, artifact.customparametertype-common.jar, artifact.final_plugin_package, artifact.unpacked_plugin" description="Build all artifacts">
+    <mkdir dir="${artifact.output.copy_plugin_to_data_directory}"/>
+    <copy todir="${artifact.output.copy_plugin_to_data_directory}">
+      <fileset dir="${artifact.temp.output.copy_plugin_to_data_directory}"/>
+    </copy>
+    <mkdir dir="${artifact.output.customparametertype-common.jar}"/>
+    <copy todir="${artifact.output.customparametertype-common.jar}">
+      <fileset dir="${artifact.temp.output.customparametertype-common.jar}"/>
+    </copy>
+    <mkdir dir="${artifact.output.final_plugin_package}"/>
+    <copy todir="${artifact.output.final_plugin_package}">
+      <fileset dir="${artifact.temp.output.final_plugin_package}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_customparametertype-server" default="compile.module.customparametertype-server">
+  <dirname property="module.customparametertype-server.basedir" file="${ant.file.module_customparametertype-server}"/>
+  
+  
+  <property name="compiler.args.customparametertype-server" value="-encoding windows-1251 -source 1.5 ${compiler.args}"/>
+  
+  <property name="customparametertype-server.output.dir" value="${module.customparametertype-server.basedir}/../out/production/customParameterType-server"/>
+  <property name="customparametertype-server.testoutput.dir" value="${module.customparametertype-server.basedir}/../out/test/customParameterType-server"/>
+  
+  <path id="customparametertype-server.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="customparametertype-server.module.production.classpath">
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="library.teamcity_closed_api.classpath"/>
+  </path>
+  
+  <path id="customparametertype-server.runtime.production.module.classpath">
+    <pathelement location="${customparametertype-server.output.dir}"/>
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="library.teamcity_closed_api.classpath"/>
+  </path>
+  
+  <path id="customparametertype-server.module.classpath">
+    <pathelement location="${customparametertype-server.output.dir}"/>
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="library.teamcity_closed_api.classpath"/>
+  </path>
+  
+  <path id="customparametertype-server.runtime.module.classpath">
+    <pathelement location="${customparametertype-server.testoutput.dir}"/>
+    <pathelement location="${customparametertype-server.output.dir}"/>
+    <path refid="library.tomcat.classpath"/>
+    <path refid="library.teamcity_open_api_server.classpath"/>
+    <path refid="library.teamcity_open_api_common.classpath"/>
+    <path refid="library.teamcity_third-party_common.classpath"/>
+    <path refid="library.teamcity_third-party_server.classpath"/>
+    <path refid="library.teamcity_closed_api.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.customparametertype-server">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.customparametertype-server">
+    <patternset refid="excluded.from.module.customparametertype-server"/>
+  </patternset>
+  
+  <path id="customparametertype-server.module.sourcepath">
+    <dirset dir="${module.customparametertype-server.basedir}">
+      <include name="src"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.customparametertype-server" depends="compile.module.customparametertype-server.production,compile.module.customparametertype-server.tests" description="Compile module customParameterType-server"/>
+  
+  <target name="compile.module.customparametertype-server.production" depends="register.custom.compilers" description="Compile module customParameterType-server; production classes">
+    <mkdir dir="${customparametertype-server.output.dir}"/>
+    <javac2 destdir="${customparametertype-server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.customparametertype-server}"/>
+      <bootclasspath refid="customparametertype-server.module.bootclasspath"/>
+      <classpath refid="customparametertype-server.module.production.classpath"/>
+      <src refid="customparametertype-server.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.customparametertype-server"/>
+    </javac2>
+    
+    <copy todir="${customparametertype-server.output.dir}">
+      <fileset dir="${module.customparametertype-server.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.customparametertype-server.basedir}/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.customparametertype-server.tests" depends="register.custom.compilers,compile.module.customparametertype-server.production" description="compile module customParameterType-server; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.customparametertype-server" description="cleanup module">
+    <delete dir="${customparametertype-server.output.dir}"/>
+    <delete dir="${customparametertype-server.testoutput.dir}"/>
+  </target>
+</project>
