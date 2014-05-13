@@ -4,6 +4,8 @@ Provides new "Build" parameter type which is configured with build configuration
 
 Note: plugin maintenance is not provided by JetBrains, use at your own risk.
 
+TeamCity versions compatibility: 8.0+
+The plugin uses non-open API.
 
 -- How to build the project --
 
@@ -11,9 +13,9 @@ Pre-requisites:
 - JDK 1.6
 - IntelliJ IDEA (12+, Ultimate edition recommended)
 - Ant 1.7+
-- TeamCity 7.1+ .tar.gz distribution
+- TeamCity 8.0+ .tar.gz distribution
 
-The project is compatible with IntelliJ IDEA 12+ and TeamCity 7.1+
+The project is compatible with IntelliJ IDEA 12+ and TeamCity 8.0+
 Sequence of IDEA setup:
 - configure Path Variable "TeamCityDistribution" in IDEA Settings/Project Variables to point to the unpacked TeamCity .tar.gz distribution. Use the minimum version the plugin should be compatible with.
 - configure Path Variable "TeamCityDataDirectory" in IDEA Settings/Project Variables to point to the data directory to be used.
